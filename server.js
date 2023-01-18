@@ -1,27 +1,18 @@
 const express = require ('express');
-const { readFromFile, writeToFile, readAndAppend } = require('./helpers/fsUtils');
 const path =require ('path');
+const routes = require('./routes')
 const app = express();
+const PORT = process.env.PORT || 3001;
 
 // GET /notes should return the notes.html file.
 
-app.get('/notes', (req, res) =>
-  res.sendFile(path.join(__dirname, './public/notes.html'))
-);
-
-app.get('/', (req, res) =>
-  res.sendFile(path.join(__dirname, './public/index.html'))
-);
-
-// GET * should return the index.html file.
-
-app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, './public/index.html'))
-);
+app.use(express.json())
+app.use(express.urlencoded({extended:true}))
+app.use(express.static('public'));
+app.use(routes);
 
 
 
-// GET Route for homepage
 
 
 // GET /api/notes should read the db.json file and return all saved notes as JSON.
@@ -35,3 +26,5 @@ app.get('*', (req, res) =>
 // DELETE /api/notes/:id should receive a query parameter that contains the id of a note to delete. 
 // To delete a note, you'll need to read all notes from the db.json file, remove the note with the given
 // id property, and then rewrite the notes to the db.json file
+
+app.listen(PORT,() => console.log('http://localhost:'+PORT))
