@@ -3,6 +3,7 @@ const fs = require ('fs');
 const util = require('util');
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
+//const { v4: uuidv4 } = require('uuid');
 
 const getNotes = () => {
     return readFile('db/db.json', 'utf-8').then(rawNotes => [].concat(JSON.parse(rawNotes))) 
@@ -20,5 +21,13 @@ router.post('/', (req,res) => {
     })
 })
 
+//delete route for front end to delete a note from the list
+router.delete('/:id', (req, res) => {
+    const id = req.params.id;
+    readFile('db/db.json').then((notes) => JSON.parse(notes)).then((json) => {
+        const result = json.filter((notes) => notes.id !== id);
+        writeFile('db/db.json', result); res.json(`note ${id} removed from list`);
+    })
+})
 
 module.exports= router
