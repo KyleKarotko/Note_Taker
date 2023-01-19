@@ -4,6 +4,9 @@ A note taking application using express.js to write and save notes.
 
 This was created for the purpose of fulfilling the challenge requirements in module 11. Create an application called Note Taker that can be used to write and save notes. This application will use an Express.js back end and will save and retrieve note data from a JSON file.
 
+# Installation
+The user needs to install a `package.json` by entering `npm init` in their command line. Following that the user will also have to add express by using `npm i express@4.17.1` in their command line. Last the user will need to add uuid by entering `npm i uuid@8.3.2` into their command line.
+
 ```
 GIVEN a note-taking application
 WHEN I open the Note Taker
@@ -22,7 +25,7 @@ THEN I am presented with empty fields to enter a new note title and the note’s
 
 # Mock-up
 The following images show the webpage's apperance
-![Note Taker](./assets/images/TG1.png)
+![Note Taker](./public/assets/images/NT1.png)
 
 
 # Links
