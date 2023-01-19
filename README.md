@@ -24,7 +24,7 @@ THEN I am presented with empty fields to enter a new note title and the note’s
 ```
 
 # Mock-up
-The following images show the webpage's apperance
+The following images show the applications apperance
 ![Note Taker](./public/assets/images/NT1.png)
 
 
