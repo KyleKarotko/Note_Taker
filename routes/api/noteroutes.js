@@ -3,7 +3,7 @@ const fs = require ('fs');
 const util = require('util');
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
-//const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 
 const getNotes = () => {
     return readFile('db/db.json', 'utf-8').then(rawNotes => [].concat(JSON.parse(rawNotes))) 
@@ -15,19 +15,22 @@ router.get('/', (req, res) => {
 // post route for front end
 router.post('/', (req,res) => {
     getNotes().then(notes => {
-        const updatedNotes = [...notes, {title:req.body.title, text:req.body.text, id:1}]
+        const updatedNotes = [...notes, {title:req.body.title, text:req.body.text, id: uuidv4()}]
         console.log(updatedNotes)
         writeFile('db/db.json', JSON.stringify(updatedNotes)).then(()=>res.json({msg:'ok'}))
     })
 })
 
 //delete route for front end to delete a note from the list
-router.delete('/:id', (req, res) => {
-    const id = req.params.id;
-    readFile('db/db.json').then((notes) => JSON.parse(notes)).then((json) => {
-        const result = json.filter((notes) => notes.id !== id);
-        writeFile('db/db.json', result); res.json(`note ${id} removed from list`);
-    })
-})
+// router.delete('/', (req, res) => {
+//     const id = req.params.id;
+//     console.log(id)
+//     readFile('db/db.json').then((notes) => JSON.parse(notes)).then((json) => {
+//         const result = json.filter((note) => note.id !== id);
+//         writeFile('db/db.json', result); res.json(`note ${id} removed from list`);
+//     })
+// })
+
+
 
 module.exports= router
