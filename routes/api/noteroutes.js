@@ -22,14 +22,13 @@ router.post('/', (req,res) => {
 })
 
 //delete route for front end to delete a note from the list
-// router.delete('/', (req, res) => {
-//     const id = req.params.id;
-//     console.log(id)
-//     readFile('db/db.json').then((notes) => JSON.parse(notes)).then((json) => {
-//         const result = json.filter((note) => note.id !== id);
-//         writeFile('db/db.json', result); res.json(`note ${id} removed from list`);
-//     })
-// })
+router.delete('/:id', (req, res) => {
+    const id = req.params.id;
+   getNotes().then(oldNotes => {
+    let filteredNotes = oldNotes.filter(note => note.id !== id)
+    writeFile('db/db.json', JSON.stringify(filteredNotes)).then(()=>res.json({msg:'ok'}))
+})
+});
 
 
 
